@@ -1,0 +1,28 @@
+{
+  "name": "our-blog",
+  "version": "1.0.0",
+  "description": "A full-featured blog management system built with Node.js, Express, MongoDB, and EJS",
+  "main": "project.js",
+  "scripts": {
+    "start": "node project.js",
+    "dev": "nodemon project.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "connect-mongo": "^5.1.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.6.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.19.0",
+    "jsonwebtoken": "^9.0.2",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.17.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

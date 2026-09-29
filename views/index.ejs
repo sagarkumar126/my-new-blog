@@ -1,0 +1,94 @@
+<section class="hero-section">
+
+  <div class="hero-top">
+    <span class="hero-tag">Web Developer & Content Creator</span>
+
+    <h1 class="hero-title">
+      Hi, I am <span class="hero-accent">Sagar Kumar</span>
+    </h1>
+
+    <p class="hero-subtitle">I build clean, thoughtful things for the web.</p>
+  </div>
+
+  <div class="hero-image-card">
+    <img src="https://images.pexels.com/photos/265667/pexels-photo-265667.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Sagar Kumar" />
+  </div>
+
+</section>
+
+<section class="articles">
+
+  <div class="articles-header">
+    <h2>All Blogs</h2>
+    <% if (locals.user) { %>
+      <a href="/add-post" class="btn-add-post">+ Add Your Post</a>
+    <% } %>
+  </div>
+
+  <% if (!data || data.length === 0) { %>
+    <p class="no-posts">No blogs available yet. Be the first to post!</p>
+  <% } %>
+
+  <ul>
+    <% data.forEach(post => { %>
+      <li class="post-item">
+        <a class="postdate" href="/post/<%= post._id %>">
+          <span class="title"><%= post.title %></span>
+          <div class="post-meta">
+            <span class="date">
+              📅 <%= new Date(post.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) %>
+              &nbsp;•&nbsp;
+              🕒 <%= new Date(post.createdAt).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true }) %>
+            </span>
+
+            <% if (post.updatedAt && new Date(post.updatedAt).getTime() !== new Date(post.createdAt).getTime()) { %>
+              <span class="updated-at">
+                ✏️ Updated: <%= new Date(post.updatedAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) %>
+                &nbsp;•&nbsp;
+                <%= new Date(post.updatedAt).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true }) %>
+              </span>
+            <% } %>
+
+            <% if (post.author && post.author.username) { %>
+              <span class="author-email">✉ <%= post.author.username %></span>
+            <% } else { %>
+              <span class="author-email">✉ unknown</span>
+            <% } %>
+          </div>
+        </a>
+
+        <% if (typeof currentUserId !== 'undefined' && currentUserId !== null
+               && post.author && post.author._id
+               && post.author._id.toString() === currentUserId) { %>
+          <div class="post-controls">
+            <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
+            <form action="/delete-post/<%= post._id %>?_method=DELETE" method="POST" class="delete-form" data-confirm-delete>
+              <input type="submit" value="Delete" class="btn btn-delete">
+            </form>
+          </div>
+        <% } %>
+      </li>
+    <% }) %>
+  </ul>
+
+  <% if (totalPages > 1) { %>
+    <div class="pagination-wrap">
+      <% if (current > 1) { %>
+        <a href="/?page=<%= current - 1 %>" class="pagination">‹ Prev</a>
+      <% } else { %>
+        <span class="pagination disabled">‹ Prev</span>
+      <% } %>
+
+      <% for (let i = 1; i <= totalPages; i++) { %>
+        <a href="/?page=<%= i %>" class="pagination <%= (i === current) ? 'active' : '' %>"><%= i %></a>
+      <% } %>
+
+      <% if (current < totalPages) { %>
+        <a href="/?page=<%= current + 1 %>" class="pagination">Next ›</a>
+      <% } else { %>
+        <span class="pagination disabled">Next ›</span>
+      <% } %>
+    </div>
+  <% } %>
+
+</section>

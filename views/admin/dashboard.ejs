@@ -1,0 +1,58 @@
+<div class="admin-title">
+
+<h2>Posts</h2>
+
+<a href="/add-post" class="button">+ Add Your Blog</a>
+
+
+</div>
+
+<ul class="admin-post">
+  <% data.forEach(post => { %>
+    <li>
+      <a href="/post/<%= post._id %>">
+        <%= post.title %> &nearr;
+      </a>
+
+      <div class="post-datetime">
+        📅 <%= new Date(post.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) %>
+        &nbsp;•&nbsp;
+        🕒 <%= new Date(post.createdAt).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true }) %>
+      </div>
+
+      <div class="admin-post-controls">
+        <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
+
+        <form action="/delete-post/<%= post._id %>?_method=DELETE" method="POST" data-confirm-delete>
+          <input type="submit" value="Delete" class="btn">
+        </form>
+
+
+
+      </div>
+    </li>
+  <% }) %>
+</ul>
+
+<% if (totalPages > 1) { %>
+  <div class="pagination-wrap">
+    <% if (current > 1) { %>
+      <a href="/dashboard?page=<%= current - 1 %>" class="pagination">‹ Prev</a>
+    <% } else { %>
+      <span class="pagination disabled">‹ Prev</span>
+    <% } %>
+
+    <% for (let i = 1; i <= totalPages; i++) { %>
+      <a href="/dashboard?page=<%= i %>" class="pagination <%= (i === current) ? 'active' : '' %>"><%= i %></a>
+    <% } %>
+
+    <% if (current < totalPages) { %>
+      <a href="/dashboard?page=<%= current + 1 %>" class="pagination">Next ›</a>
+    <% } else { %>
+      <span class="pagination disabled">Next ›</span>
+    <% } %>
+  </div>
+<% } %>
+
+
+

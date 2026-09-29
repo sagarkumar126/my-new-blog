@@ -1,0 +1,27 @@
+<div class="post-header-bar">
+  <h1 id="tit"><%= data.title %></h1>
+
+  <% if (locals.user) { %>
+    <a href="/add-post" class="btn-add-post">+ Add Your Post</a>
+  <% } %>
+</div>
+
+<!-- Edit / Delete buttons (only if you are the author) -->
+<% if (locals.user && data.author && data.author._id
+       && data.author._id.toString() === locals.user.userId.toString()) { %>
+  <div class="post-owner-controls">
+    <a href="/edit-post/<%= data._id %>" class="btn">Edit Post</a>
+
+    <form action="/delete-post/<%= data._id %>?_method=DELETE" method="POST" class="inline-delete-form" data-confirm-delete>
+      <input type="submit" value="Delete Post" class="btn btn-delete">
+    </form>
+  </div>
+<% } %>
+
+<article id="bodi">
+  <%= data.Body %>
+</article>
+
+<div id="extra"></div>
+
+

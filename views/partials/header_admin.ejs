@@ -1,0 +1,31 @@
+<header class="header">
+
+  <a href="/">Our Blog</a>
+
+  <nav>
+    <ul>
+      <li><a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Home</a></li>
+      <li><a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">About</a></li>
+      <li><a href="/contact" class="<%= isActiveRoute('/contact', currentRoute) %>">Contact</a></li>
+      <li><a href="/dashboard" class="<%= isActiveRoute('/dashboard', currentRoute) %>">My Dashboard</a></li>
+
+      <!-- ⭐ Logged-in Gmail shown here -->
+      <% if (locals.user) { %>
+        <li class="user-email">
+          <span title="Logged in as">✉ <%= locals.user.username %></span>
+        </li>
+      <% } %>
+
+      <li>
+        <a href="/logout" id="logout"
+           onclick="return confirm('Are you sure you want to logout?');">
+          Logout
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+</header>
+
+
+

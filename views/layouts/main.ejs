@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Blog</title>
+
+  <link rel="icon" type="image/webp" href="/images/logo__.jpg" />
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script>
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+  </script>
+
+  <script src="/scripts/script.js" defer></script>
+  <base href="/">
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="top-bar">
+      <%- include('../partials/header.ejs') %>
+
+      <% if (typeof currentRoute !== 'undefined' && currentRoute === '/') { %>
+        <%- include('../partials/search.ejs') %>
+      <% } %>
+    </div>
+
+    <main>
+      <%- body %>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+  </div>
+
+  <!-- ⭐ Delete Confirmation Modal -->
+  <div id="deleteModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-icon">⚠️</div>
+      <h3 class="modal-title">Delete this post?</h3>
+      <p class="modal-text">This action cannot be undone. The post will be permanently removed.</p>
+      <div class="modal-actions">
+        <button type="button" class="modal-btn modal-cancel" id="modalCancel">Cancel</button>
+        <button type="button" class="modal-btn modal-confirm" id="modalConfirm">Delete</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+
+
+
+
